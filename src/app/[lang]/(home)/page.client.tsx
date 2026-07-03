@@ -186,7 +186,7 @@ export function Hero() {
           )}
         >
           <Image
-            src="/assets/newapi.svg"
+            src="https://image.flyreq.com/favicon.png"
             alt="logo"
             width={288}
             height={288}

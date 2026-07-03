@@ -1,9 +1,7 @@
 /**
  * Prebuild Script
- * Generates changelog before build
+ * Reserved for build-time preparation.
  */
-
-import { generateChangelog } from './build-changelog';
 
 async function prebuild() {
   console.log('═══════════════════════════════════════════════');
@@ -13,7 +11,7 @@ async function prebuild() {
   const startTime = Date.now();
 
   try {
-    await generateChangelog();
+    console.log('No prebuild tasks configured.');
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(2);
 

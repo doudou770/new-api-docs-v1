@@ -10,16 +10,16 @@ const config = {
     serverActions: {
       allowedOrigins: [
         'localhost:3000',
-        // newapi.pro domains
-        'docs.newapi.pro',
-        'newapi.pro',
-        'www.newapi.pro',
-        // newapi.ai domains
-        'docs.newapi.ai',
-        'newapi.ai',
-        'www.newapi.ai',
+        // flyreqapi.pro domains
+        'docs.flyreqapi.pro',
+        'flyreqapi.pro',
+        'www.flyreqapi.pro',
+        // flyreqapi.ai domains
+        'docs.flyreqapi.ai',
+        'flyreqapi.ai',
+        'www.flyreqapi.ai',
         // Vercel preview
-        'new-api-docs-v1.vercel.app',
+        'flyreqapi-docs-v1.vercel.app',
       ],
     },
   },

@@ -1,6 +1,6 @@
 ---
 title: AionUi - Free Open-Source Desktop Office Agent
-description: AionUi Tutorial — A free open-source desktop office agent supporting various AI agents like Gemini CLI, Claude Code, Codex, and more. Integrates with New API to enable multi-model workflows.
+description: AionUi Tutorial — A free open-source desktop office agent supporting various AI agents like Gemini CLI, Claude Code, Codex, and more. Integrates with FlyReq API to enable multi-model workflows.
 ---
 
 <Callout type="info">
@@ -49,19 +49,19 @@ description: AionUi Tutorial — A free open-source desktop office agent support
 - **Feishu Integration** - Supports access and interaction via Feishu.
 - **Local Data Security** - All data is stored in a local SQLite database, suitable for server deployment.
 
-## NewAPI Integration Method
+## FlyReqAPI Integration Method
 
 ### Parameter Entry
 
-Provider Type: Types supported by NewAPI
-API Key: Obtained from NewAPI
-API Address: NewAPI site address (e.g., `https://<your-newapi-domain>/v1`)
+Provider Type: Types supported by FlyReqAPI
+API Key: Obtained from FlyReqAPI
+API Address: FlyReqAPI site address (e.g., `https://<your-flyreqapi-domain>/v1`)
 
-Please use your self-deployed New API, or ensure that the service provider offers New API services with legitimate upstream authorization and compliance obligations. Do not connect API addresses or keys from unknown sources to a production environment.
+Please use your self-deployed FlyReq API, or ensure that the service provider offers FlyReq API services with legitimate upstream authorization and compliance obligations. Do not connect API addresses or keys from unknown sources to a production environment.
 
 ### Configuration Steps
 
-1.  **Copy API key in NewAPI**
+1.  **Copy API key in FlyReqAPI**
     ![Copy API Key](/assets/aionui/copy_apikey.png)
 
 2.  **Open AionUi Settings**
@@ -72,21 +72,21 @@ Please use your self-deployed New API, or ensure that the service provider offer
 
 3.  **Add New Provider**
     - Click "Add Model"
-    - Select NewAPI
-    ![Add NewAPI Provider](/assets/aionui/newapi_provider.png)
+    - Select FlyReqAPI
+    ![Add FlyReqAPI Provider](/assets/aionui/flyreqapi_provider.png)
 
 4.  **Configure API Information**
-    - API Address: Enter your NewAPI site address (format: `https://<your-newapi-domain>/v1`)
-    - API Key: Paste the API Key copied from the NewAPI console
+    - API Address: Enter your FlyReqAPI site address (format: `https://<your-flyreqapi-domain>/v1`)
+    - API Key: Paste the API Key copied from the FlyReqAPI console
 
 5.  **Add Model**
     - Select the model to add from the dropdown
-    - The model name should match the model name configured in NewAPI
+    - The model name should match the model name configured in FlyReqAPI
     - Select the appropriate request protocol
 
 6.  **Start Using**
     - Return to the chat page
-    - Select the configured NewAPI model to start a conversation
+    - Select the configured FlyReqAPI model to start a conversation
 
 ## Related Links
 

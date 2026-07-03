@@ -7,7 +7,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 // Configuration
-const SOURCE_REPO = process.env.SOURCE_REPO || 'QuantumNous/new-api';
+const SOURCE_REPO = process.env.SOURCE_REPO || 'QuantumNous/flyreqapi';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
 const MAX_RELEASES = 30;
 
@@ -75,7 +75,7 @@ const CHANGELOG_I18N = {
 
 async function fetchGitHubReleases(): Promise<Release[]> {
   const headers: Record<string, string> = {
-    'User-Agent': 'New-API-Docs-Builder/1.0',
+    'User-Agent': 'FlyReqAPI-Docs-Builder/1.0',
   };
 
   if (GITHUB_TOKEN) {
