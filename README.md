@@ -24,7 +24,7 @@ bun run build
 
 ## Docker
 
-The `master` branch is configured to build and publish a Docker image to GitHub Container Registry automatically.
+Docker images are built and published to GitHub Container Registry manually from GitHub Actions.
 
 Default image name:
 
@@ -45,10 +45,10 @@ services:
     container_name: flyreqapi-docs
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3002:3002"
     environment:
       NODE_ENV: production
-      PORT: 3000
+      PORT: 3002
       HOSTNAME: 0.0.0.0
       # Optional: enable Google Analytics
       # NEXT_PUBLIC_GA_ID: G-XXXXXXXXXX
@@ -58,7 +58,7 @@ services:
       # AI_MODEL: inkeep-qa-sonnet-4
 ```
 
-Before the first deployment, push your code to the `master` branch and wait for the **Build Docker Image** workflow to finish. After it succeeds, the `latest` image will be available from GHCR.
+Before the first deployment, open **Actions -> Build Docker Image** in GitHub and click **Run workflow**. After it succeeds, the `latest` image will be available from GHCR.
 
 If the package visibility is private, log in on the server first:
 
@@ -72,6 +72,12 @@ Start the service:
 
 ```bash
 docker compose up -d
+```
+
+After startup, open:
+
+```text
+http://localhost:3002
 ```
 
 View logs:
@@ -99,12 +105,11 @@ The workflow is located at `.github/workflows/docker-image.yml`.
 
 It runs when:
 
-- code is pushed to `master`
 - the workflow is manually triggered from GitHub Actions
 
 The workflow publishes:
 
-- `latest` for the default branch
+- `latest`
 - `sha-<commit>` for every built commit
 
 Make sure GitHub Actions has package write permission:
