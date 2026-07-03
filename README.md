@@ -45,10 +45,10 @@ services:
     container_name: flyreqapi-docs
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3002:3002"
     environment:
       NODE_ENV: production
-      PORT: 3000
+      PORT: 3002
       HOSTNAME: 0.0.0.0
       # Optional: enable Google Analytics
       # NEXT_PUBLIC_GA_ID: G-XXXXXXXXXX
@@ -72,6 +72,12 @@ Start the service:
 
 ```bash
 docker compose up -d
+```
+
+After startup, open:
+
+```text
+http://localhost:3002
 ```
 
 View logs:
