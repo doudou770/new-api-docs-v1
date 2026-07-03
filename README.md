@@ -24,7 +24,7 @@ bun run build
 
 ## Docker
 
-The `master` branch is configured to build and publish a Docker image to GitHub Container Registry automatically.
+Docker images are built and published to GitHub Container Registry manually from GitHub Actions.
 
 Default image name:
 
@@ -58,7 +58,7 @@ services:
       # AI_MODEL: inkeep-qa-sonnet-4
 ```
 
-Before the first deployment, push your code to the `master` branch and wait for the **Build Docker Image** workflow to finish. After it succeeds, the `latest` image will be available from GHCR.
+Before the first deployment, open **Actions -> Build Docker Image** in GitHub and click **Run workflow**. After it succeeds, the `latest` image will be available from GHCR.
 
 If the package visibility is private, log in on the server first:
 
@@ -99,12 +99,11 @@ The workflow is located at `.github/workflows/docker-image.yml`.
 
 It runs when:
 
-- code is pushed to `master`
 - the workflow is manually triggered from GitHub Actions
 
 The workflow publishes:
 
-- `latest` for the default branch
+- `latest`
 - `sha-<commit>` for every built commit
 
 Make sure GitHub Actions has package write permission:
