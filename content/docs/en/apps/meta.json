@@ -5,6 +5,7 @@
   "root": true,
   "pages": [
     "index",
+    "image-generation",
     "cc-switch",
     "claude-code",
     "codex-cli",
