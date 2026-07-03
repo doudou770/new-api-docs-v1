@@ -1,0 +1,166 @@
+---
+title: Codex Desktop
+description: Codex Desktop 配置教程 — 在桌面端使用 FlyReq API，配置模型、Provider、API Key 与常见排错。
+---
+
+<Callout type="info" title="适用场景">
+  Codex Desktop 是 OpenAI Codex 的桌面应用形态，适合在本地项目中进行代码理解、编辑、审查和自动化任务。桌面端的常规偏好可以在 Settings 中调整；模型网关、API 地址、认证方式等高级配置通过用户级 `config.toml` 管理。
+</Callout>
+
+<Callout type="warn" title="强烈建议">
+  强烈建议优先使用 [CC Switch](/zh/docs/apps/cc-switch) 管理 Codex、Claude Code、Gemini CLI 等工具的 Provider 配置。CC Switch 可以减少手动编辑配置文件时的路径、模型名和密钥填写错误。
+</Callout>
+
+## 配置入口
+
+### 1. 打开 Codex Desktop 设置
+
+在 Codex Desktop 中打开 **Settings**：
+
+- macOS：按 `Cmd + ,`
+- Windows：从应用菜单进入 **Settings**
+
+常用设置包括外观、通知、Git、MCP、浏览器、Computer Use、个性化和 Agent 行为。对于接入 FlyReq API 这类模型网关配置，建议直接编辑用户级配置文件。
+
+### 2. 快速打开 `.codex` 文件夹
+
+Windows PowerShell：
+
+```powershell
+explorer "$env:USERPROFILE\.codex"
+```
+
+macOS：
+
+```bash
+open ~/.codex
+```
+
+Linux：
+
+```bash
+xdg-open ~/.codex
+```
+
+如果文件夹不存在，可以先创建：
+
+```bash
+mkdir -p ~/.codex
+```
+
+### 3. 找到用户级配置文件
+
+Codex 的用户级配置文件是：
+
+```text
+~/.codex/config.toml
+```
+
+不同系统常见路径：
+
+```text
+macOS / Linux: ~/.codex/config.toml
+Windows: %USERPROFILE%\.codex\config.toml
+```
+
+<Callout type="warn" title="不要放在项目配置里">
+  模型 Provider、`model_provider`、`model_providers` 等认证或网关相关配置应放在用户级 `~/.codex/config.toml` 中。项目内 `.codex/config.toml` 主要用于仓库级偏好，不适合放 API Key 或 Provider 认证配置。
+</Callout>
+
+## 推荐配置方式
+
+FlyReq API 兼容 OpenAI 接口时，推荐新增一个自定义 Provider，并把默认模型指向该 Provider。
+
+```toml
+model_provider = "custom"
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
+disable_response_storage = true
+
+[model_providers.custom]
+name = "FlyReq"
+base_url = "https://FlyReq.com/v1"
+wire_api = "responses"
+requires_openai_auth = true
+```
+
+配置说明：
+
+| 配置项 | 说明 |
+| --- | --- |
+| `model` | Codex 默认使用的模型名称，需要与 FlyReq API 中可用的模型 ID 一致 |
+| `model_provider` | 当前默认 Provider，这里指向 `custom` |
+| `model_reasoning_effort` | 推理强度，这里使用 `medium` |
+| `disable_response_storage` | 禁用响应存储 |
+| `base_url` | FlyReq API 接口地址，通常需要包含 `/v1` |
+| `wire_api` | 使用 `responses` |
+| `requires_openai_auth` | 让 Codex 从 `auth.json` 读取 OpenAI 认证信息 |
+
+## 配置 API Key
+
+打开或创建：
+
+```text
+~/.codex/auth.json
+```
+
+写入以下内容：
+
+```json
+{
+  "OPENAI_API_KEY": "FLYREQAPI_API_KEY"
+}
+```
+
+<Callout type="warn" title="安全提醒">
+  `auth.json` 包含认证信息，请像密码一样保护它。不要提交到 Git，不要发到工单、聊天软件或截图中。修改 `auth.json` 和 `config.toml` 后，需要完全退出并重新打开 Codex Desktop。
+</Callout>
+
+## 验证配置
+
+1. 保存 `~/.codex/config.toml`
+2. 保存 `~/.codex/auth.json`
+3. 重启 Codex Desktop
+4. 打开一个项目目录
+5. 新建线程，发送一个简单请求，例如：
+
+```text
+请读取当前项目结构，并用一句话总结项目用途。
+```
+
+如果配置正确，Codex 会通过 FlyReq API 调用对应模型并返回结果。
+
+## 常见问题
+
+### 提示认证失败
+
+检查：
+
+- `~/.codex/auth.json` 是否存在
+- `auth.json` 中是否包含 `"OPENAI_API_KEY": "FLYREQAPI_API_KEY"`
+- Codex Desktop 是否已经完全重启
+- `config.toml` 中是否设置了 `requires_openai_auth = true`
+
+### 提示模型不存在
+
+检查 `model` 是否与 FlyReq API 控制台中的模型 ID 完全一致，例如文档示例中的 `gpt-5.5`。如果你的服务使用自定义模型名，请以控制台实际暴露的模型 ID 为准。
+
+### 请求地址错误
+
+确认 `base_url` 以 `/v1` 结尾，例如：
+
+```text
+https://FlyReq.com/v1
+```
+
+不要填写网页控制台地址，也不要重复拼接 `/v1/v1`。
+
+### 配置不生效
+
+检查配置文件位置是否正确。Provider 相关配置应位于用户级：
+
+```text
+~/.codex/config.toml
+```
+
+修改后需要重启 Codex Desktop。

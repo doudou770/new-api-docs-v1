@@ -99,8 +99,8 @@ export function Hero() {
   const shaderColors = useMemo(
     () =>
       resolvedTheme === 'dark'
-        ? ['#06B6D4', '#8B5CF6', '#EC4899', '#1E3A8A00']
-        : ['#22D3EE', '#A78BFA', '#F9A8D4', '#DBEAFE20'],
+        ? ['#0EA5E9', '#38BDF8', '#7DD3FC', '#0F172A00']
+        : ['#38BDF8', '#7DD3FC', '#BAE6FD', '#E0F2FE20'],
     [resolvedTheme]
   );
 
@@ -155,8 +155,8 @@ export function Hero() {
         style={{
           background:
             resolvedTheme === 'dark'
-              ? 'radial-gradient(1200px 800px at 20% 15%, rgba(6,182,212,.28), transparent 60%), radial-gradient(1000px 700px at 70% 25%, rgba(139,92,246,.24), transparent 55%), radial-gradient(900px 700px at 55% 70%, rgba(236,72,153,.18), transparent 60%)'
-              : 'radial-gradient(1200px 800px at 20% 15%, rgba(34,211,238,.25), transparent 60%), radial-gradient(1000px 700px at 70% 25%, rgba(167,139,250,.22), transparent 55%), radial-gradient(900px 700px at 55% 70%, rgba(249,168,212,.18), transparent 60%)',
+              ? 'radial-gradient(1200px 800px at 20% 15%, rgba(14,165,233,.28), transparent 60%), radial-gradient(1000px 700px at 70% 25%, rgba(56,189,248,.24), transparent 55%), radial-gradient(900px 700px at 55% 70%, rgba(125,211,252,.18), transparent 60%)'
+              : 'radial-gradient(1200px 800px at 20% 15%, rgba(56,189,248,.25), transparent 60%), radial-gradient(1000px 700px at 70% 25%, rgba(125,211,252,.22), transparent 55%), radial-gradient(900px 700px at 55% 70%, rgba(186,230,253,.18), transparent 60%)',
         }}
       />
 

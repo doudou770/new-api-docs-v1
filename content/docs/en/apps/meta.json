@@ -5,9 +5,12 @@
   "root": true,
   "pages": [
     "index",
-    "aionui",
     "cc-switch",
+    "claude-code",
+    "codex-cli",
+    "codex-desktop",
     "cherry-studio",
+    "aionui",
     "deepchat",
     "fluent-read",
     "memoh",
@@ -15,8 +18,6 @@
     "langbot",
     "luna-translator",
     "astrbot",
-    "claude-code",
-    "codex-cli",
     "factory-droid-cli"
   ]
 }

@@ -1,0 +1,166 @@
+---
+title: Codex Desktop
+description: Codex Desktop setup guide — configure FlyReq API, model providers, API keys, and common troubleshooting.
+---
+
+<Callout type="info" title="Use case">
+  Codex Desktop is the desktop app surface for OpenAI Codex. It is designed for local project understanding, editing, review, and agentic coding workflows. Common preferences are available in Settings; advanced model gateway settings such as providers, API addresses, and authentication are configured in the user-level `config.toml`.
+</Callout>
+
+<Callout type="warn" title="Strong recommendation">
+  We strongly recommend using [CC Switch](/en/docs/apps/cc-switch) to manage Provider configuration for Codex, Claude Code, Gemini CLI, and related tools. It reduces mistakes around file paths, model names, and API keys when compared with manual editing.
+</Callout>
+
+## Configuration Entry Points
+
+### 1. Open Codex Desktop Settings
+
+Open **Settings** in Codex Desktop:
+
+- macOS: press `Cmd + ,`
+- Windows: open **Settings** from the app menu
+
+Settings covers appearance, notifications, Git, MCP, browser, Computer Use, personalization, and agent behavior. For connecting FlyReq API as a model gateway, edit the user-level configuration file.
+
+### 2. Quickly Open the `.codex` Folder
+
+Windows PowerShell:
+
+```powershell
+explorer "$env:USERPROFILE\.codex"
+```
+
+macOS:
+
+```bash
+open ~/.codex
+```
+
+Linux:
+
+```bash
+xdg-open ~/.codex
+```
+
+If the folder does not exist yet, create it first:
+
+```bash
+mkdir -p ~/.codex
+```
+
+### 3. Locate the User Configuration File
+
+Codex stores user-level configuration at:
+
+```text
+~/.codex/config.toml
+```
+
+Common paths:
+
+```text
+macOS / Linux: ~/.codex/config.toml
+Windows: %USERPROFILE%\.codex\config.toml
+```
+
+<Callout type="warn" title="Do not use project config for provider credentials">
+  Provider settings such as `model_provider` and `model_providers` should be placed in the user-level `~/.codex/config.toml`. Project-level `.codex/config.toml` files are meant for repository preferences and should not contain API keys or provider authentication.
+</Callout>
+
+## Recommended Setup
+
+When FlyReq API is compatible with OpenAI-style APIs, define a custom provider and point Codex to it.
+
+```toml
+model_provider = "custom"
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
+disable_response_storage = true
+
+[model_providers.custom]
+name = "FlyReq"
+base_url = "https://FlyReq.com/v1"
+wire_api = "responses"
+requires_openai_auth = true
+```
+
+Configuration notes:
+
+| Key | Description |
+| --- | --- |
+| `model` | Default model used by Codex. It must match a model ID available in FlyReq API |
+| `model_provider` | The default provider, set to `custom` here |
+| `model_reasoning_effort` | Reasoning effort, set to `medium` |
+| `disable_response_storage` | Disables response storage |
+| `base_url` | FlyReq API endpoint, usually ending with `/v1` |
+| `wire_api` | Uses `responses` |
+| `requires_openai_auth` | Makes Codex read OpenAI authentication from `auth.json` |
+
+## Configure the API Key
+
+Open or create:
+
+```text
+~/.codex/auth.json
+```
+
+Write the following content:
+
+```json
+{
+  "OPENAI_API_KEY": "FLYREQAPI_API_KEY"
+}
+```
+
+<Callout type="warn" title="Security note">
+  `auth.json` contains authentication data. Treat it like a password. Do not commit it to Git, paste it into support tickets or chats, or include it in screenshots. After editing `auth.json` and `config.toml`, fully quit and reopen Codex Desktop.
+</Callout>
+
+## Verify the Setup
+
+1. Save `~/.codex/config.toml`
+2. Save `~/.codex/auth.json`
+3. Restart Codex Desktop
+4. Open a project folder
+5. Start a new thread and send a simple request:
+
+```text
+Read the current project structure and summarize the project in one sentence.
+```
+
+If the configuration is correct, Codex will call the selected model through FlyReq API and return a response.
+
+## Troubleshooting
+
+### Authentication Failed
+
+Check:
+
+- `~/.codex/auth.json` exists
+- `auth.json` contains `"OPENAI_API_KEY": "FLYREQAPI_API_KEY"`
+- Codex Desktop has been fully restarted
+- `config.toml` includes `requires_openai_auth = true`
+
+### Model Not Found
+
+Make sure `model` exactly matches a model ID exposed by FlyReq API, such as `gpt-5.5` in this guide. If your service uses a custom model name, use the exact model ID shown in the console.
+
+### Wrong API Address
+
+Make sure `base_url` ends with `/v1`, for example:
+
+```text
+https://FlyReq.com/v1
+```
+
+Do not use the web console URL, and avoid duplicating the path as `/v1/v1`.
+
+### Configuration Does Not Take Effect
+
+Confirm that the provider settings are in the user-level file:
+
+```text
+~/.codex/config.toml
+```
+
+Restart Codex Desktop after saving changes.
