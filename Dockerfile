@@ -1,11 +1,11 @@
 # syntax=docker/dockerfile:1
 
-FROM oven/bun:1.2-alpine AS builder
+FROM node:24-alpine AS builder
 WORKDIR /app
 
 COPY . .
-RUN bun install --frozen-lockfile
-RUN bun run build
+RUN npm install --legacy-peer-deps
+RUN npm run build
 
 FROM node:24-alpine AS runner
 WORKDIR /app
