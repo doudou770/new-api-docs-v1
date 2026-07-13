@@ -2,8 +2,24 @@ import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import { i18n } from '@/lib/i18n';
 import Image from 'next/image';
 import type { LinkItemType } from 'fumadocs-ui/layouts/docs';
+import { ExternalLink } from 'lucide-react';
 
-export const linkItems: LinkItemType[] = [];
+const MAIN_SITE_URL = 'https://flyreq.com';
+
+export function getLinkItems(locale: string): LinkItemType[] {
+  const isChinese = locale === 'zh';
+
+  return [
+    {
+      type: 'button',
+      text: isChinese ? '访问官网' : 'Visit Website',
+      url: MAIN_SITE_URL,
+      external: true,
+      active: 'none',
+      icon: <ExternalLink />,
+    },
+  ];
+}
 
 export const logo = (
   <Image

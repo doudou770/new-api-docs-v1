@@ -1,5 +1,5 @@
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
-import { baseOptions, linkItems } from '@/lib/layout.shared';
+import { baseOptions, getLinkItems } from '@/lib/layout.shared';
 import {
   NavbarMenu,
   NavbarMenuContent,
@@ -10,11 +10,7 @@ import { Footer } from '@/components/footer';
 import Link from 'fumadocs-core/link';
 import Image from 'next/image';
 import Preview from '@/../public/assets/dashboard-dark.png';
-import {
-  HelpCircle,
-  Sparkles,
-  type LucideIcon,
-} from 'lucide-react';
+import { HelpCircle, Sparkles, type LucideIcon } from 'lucide-react';
 import { getLocalePath } from '@/lib/i18n';
 
 // Navigation items configuration
@@ -138,7 +134,7 @@ export default async function Layout({
               </NavbarMenu>
             ),
           },
-          ...linkItems,
+          ...getLinkItems(lang),
         ]}
         className="flex-1 dark:bg-neutral-950 dark:[--color-fd-background:var(--color-neutral-950)]"
       >
